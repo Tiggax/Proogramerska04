@@ -17,35 +17,42 @@ public class BinomialHeap {
 
 		BinomialNode tmp = new BinomialNode(key);
 		
-		for (int i = 0; i < data.length-1; i++) {
+		for (int i = 0; i < data.length; i++) {
 			if (!(data[i]==null)) {
-				if ((data[i+1]==null)) {
-					if (i+1>data.length) {
-						resizeArray();
-						data[i+1] = merge(data[i], tmp);
-						return true;
-					}
-					data[i+1] = merge(data[i], tmp);
+				if (i+1>=data.length) {
+					resizeArray();
+					this.data[i+1] = merge(data[i], tmp);
+					this.data[i] = null;
 					return true;
 				}
+				if ((data[i+1]==null)) {
+					this.data[i+1] = merge(data[i], tmp);
+					this.data[i] = null;
+					return true;
+				} else {
+					tmp = merge(tmp, data[i]);
+					data[i] = null;
+					continue;
+				}
 			}
-			data[i] = tmp;
+			this.data[i] = tmp;
 			return true;
 		}
+
 		return false;
 	}
 
 	public int getMin() {
-
+		return 1;
 	}
 
 	public boolean delMin() {
-
+		return false;
 	}
 
 	private void resizeArray() {
 		BinomialNode[] tmp = new BinomialNode[data.length * 2];
-		for (int i = 0; i < tmp.length; i++) {
+		for (int i = 0; i < data.length; i++) {
 			tmp[i] = data[i];
 		}
 		this.data = tmp;
@@ -53,12 +60,14 @@ public class BinomialHeap {
 
 	private BinomialNode merge(BinomialNode t1, BinomialNode t2) {
 		// vzam manši root, pinaš večjega nanga,
-
-		if (t1.getKey()==t2.getKey()) {System.out.println("hmmm...");}
 	
 		if ( t1.getKey() < t2.getKey() ) {
 			t1.addChild(t2);
-		} else if ( t1.getKey() > t2.getKey() ) {
+			return t1;
+		} else {
 			t2.addChild(t1);
+			return t2;
+		}
+
 	}
 }

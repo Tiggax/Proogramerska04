@@ -43,7 +43,16 @@ public class BinomialHeap {
 	}
 
 	public int getMin() {
-		return 1;
+		int min = Integer.MAX_VALUE;
+		for (int i = 0; i < data.length; i++) {
+			if ( data[i] == null ) {
+				continue;
+			}
+			if ( data[i].getKey()  < min ) {
+				min = data[i].getKey();
+			}
+		}
+		return min;
 	}
 
 	public boolean delMin() {

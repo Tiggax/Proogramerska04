@@ -30,7 +30,7 @@ public class BinomialHeap {
 	}
 
 	private void resizeArray() {
-		BinomialNode[] tmp = new BinomialNode[data.length+1];
+		BinomialNode[] tmp = new BinomialNode[data.length*2];
 		for (int i = 0; i < tmp.length; i++) {
 			tmp[i]=data[i];
 		}

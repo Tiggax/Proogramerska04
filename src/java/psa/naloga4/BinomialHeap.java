@@ -57,6 +57,7 @@ public class BinomialHeap {
 
 	public boolean delMin() {
 		for (int i = 0; i < data.length; i++) {
+			if (data[i] == null) {continue;}
 			if ( data[i].getKey() == getMin() ) {
 				Vector<BinomialNode> subs = data[i].getChilds();
 				if (subs.size() == 0) {

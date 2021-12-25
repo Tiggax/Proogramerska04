@@ -18,6 +18,7 @@ public class BinomialHeap {
 		BinomialNode tmp = new BinomialNode(key);
 		
 		for (int i = 0; i < data.length; i++) {
+			
 			if (!(data[i]==null)) {
 				if (i+1>=data.length) {
 					resizeArray();
@@ -59,12 +60,29 @@ public class BinomialHeap {
 		for (int i = 0; i < data.length; i++) {
 			if (data[i] == null) {continue;}
 			if ( data[i].getKey() == getMin() ) {
+				
 				Vector<BinomialNode> subs = data[i].getChilds();
 				if (subs.size() == 0) {
 					data[i] = null;
 					return true;
 				}
-				data[i] = merge(subs.firstElement(), subs.lastElement());
+
+				int min = Integer.MAX_VALUE;
+				int mini = Integer.MAX_VALUE;
+				for (int j = 0; j < subs.size(); j++) {
+					if ( subs.get(j).getKey() < min ) {
+						min = subs.get(j).getKey();
+						mini = j;
+					}					
+				}
+
+				BinomialNode tmp = subs.get(mini);
+				subs.remove(tmp);
+				for (BinomialNode node : subs) {
+					tmp.addChild(node);
+				}
+
+				data[i] = tmp;
 				return true;
 			}
 		}
